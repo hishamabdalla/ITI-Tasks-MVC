@@ -1,0 +1,20 @@
+﻿@model TraineeDetailsViewModel
+
+<h1>@Model.TraineeName</h1>
+<table class="table">
+    <thead class="thead-dark">
+        <tr>
+            <th scope="col">Course</th>
+            <th scope="col">Degree</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.trainneCourses)
+        {
+            <tr style="color:@item.DegreeColor">
+                <td>@item.CourseName</td>
+                <td>@item.Degree</td>
+            </tr>
+        }
+    </tbody>
+</table>

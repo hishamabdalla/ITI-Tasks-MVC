@@ -28,7 +28,7 @@ namespace ITI
 
             app.MapControllerRoute(
                 name: "default",
-                pattern: "{controller=Home}/{action=Index}/{id?}");
+                pattern: "{controller=Trainee}/{action=Index}/{id?}");
 
             app.Run();
         }

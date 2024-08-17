@@ -1,4 +1,6 @@
-﻿namespace ITI.ViewModel
+﻿using ITI.Models;
+
+namespace ITI.ViewModel
 {
     public class TraineeDetailsViewModel
     {
@@ -10,5 +12,7 @@
         public int Degree {  get; set; }
 
         public string DegreeColor { get; set; }
+
+        public List<TraineeDetailsViewModel> trainneCourses { get; set; }
     }
 }
