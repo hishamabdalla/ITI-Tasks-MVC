@@ -1,0 +1,25 @@
+﻿@using ITI.ViewModel
+@model  TraineeDetailsViewModel
+<table class="table">
+    <thead class="thead-dark">
+        <tr>
+            <th scope="col">ID</th>
+            <th scope="col">TraineeName</th>
+            <th scope="col">Course</th>
+            <th scope="col">Degree</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr style="color:@Model.DegreeColor">
+            <td>@Model.TraineeId</td>
+            <td>@Model.TraineeName</td>
+            <td>@Model.CourseName</td>
+            <td>@Model.Degree</td>
+  
+        </tr>
+       
+    </tbody>
+</table>
+
+
+</>
