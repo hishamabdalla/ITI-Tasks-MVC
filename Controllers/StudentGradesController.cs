@@ -18,7 +18,7 @@ namespace ITI.Controllers
             CrsResult crsResultModel = context.CrsResult.FirstOrDefault(t => t.Trainee_Id == id);
             Course courseModel = context.Courses.FirstOrDefault(t => t.Name == "C#");
 
-            var traineeViewModel = new TraineeDetailsViewModel()
+            var traineeViewModel = new TraineeGradesDetailsViewModel()
             {
                 TraineeId = traineeModel.Id,
                 TraineeName = traineeModel.Name,
@@ -36,7 +36,7 @@ namespace ITI.Controllers
             var courses = context.Courses.ToList();
 
             var traineeCourses = crsResults
-                .Select(cr => new TraineeDetailsViewModel
+                .Select(cr => new TraineeGradesDetailsViewModel
                 {
                     CourseName = courses.FirstOrDefault(c => c.Id == cr.Crs_Id)?.Name,
                     Degree = cr.Degree,
@@ -44,9 +44,9 @@ namespace ITI.Controllers
                 })
                 .ToList();
 
-            var traineeViewModel = new TraineeDetailsViewModel()
+            var traineeViewModel = new TraineeGradesDetailsViewModel()
             {
-                TraineeId = traineeModel.Id,
+               TraineeId = traineeModel.Id,
                 TraineeName = traineeModel.Name,
                 trainneCourses = traineeCourses
             };

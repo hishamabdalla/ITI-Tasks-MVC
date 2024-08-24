@@ -1,4 +1,4 @@
-﻿@model TraineeDetailsViewModel
+﻿@model TraineeGradesDetailsViewModel
 
 <h1>@Model.TraineeName</h1>
 <table class="table">
@@ -11,9 +11,9 @@
     <tbody>
         @foreach (var item in Model.trainneCourses)
         {
-            <tr style="color:@item.DegreeColor">
-                <td>@item.CourseName</td>
-                <td>@item.Degree</td>
+            <tr style="color:@item?.DegreeColor">
+                <td>@item?.CourseName</td>
+                <td>@item?.Degree</td>
             </tr>
         }
     </tbody>

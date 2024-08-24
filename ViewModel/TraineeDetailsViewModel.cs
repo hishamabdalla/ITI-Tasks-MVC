@@ -2,7 +2,7 @@
 
 namespace ITI.ViewModel
 {
-    public class TraineeDetailsViewModel
+    public class TraineeGradesDetailsViewModel
     {
         public int TraineeId {  get; set; }
         public string TraineeName { get; set; }
@@ -13,6 +13,6 @@ namespace ITI.ViewModel
 
         public string DegreeColor { get; set; }
 
-        public List<TraineeDetailsViewModel> trainneCourses { get; set; }
+        public List<TraineeGradesDetailsViewModel> trainneCourses { get; set; }
     }
 }

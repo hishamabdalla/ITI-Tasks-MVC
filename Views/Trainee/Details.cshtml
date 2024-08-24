@@ -1,11 +1,11 @@
-﻿@model Trainee 
+﻿@model TraineeWithDepartmentNameViewModel
 
 <div class="card" style="width:350px">
-    <img class="card-img-top" src="/Images/@Model.Image" alt="Card image" style="width:100%">
+    <img class="card-img-top" src="/Images/@Model?.Image" alt="Card image" style="width:100%">
     <div class="card-body">
-        <h4 class="card-title">@Model.Name</h4>
-        <p class="card-text">@Model.Address - @Model.Grade</p>
-        <a href="/StudentGrades/AllGrades/@Model.Id" class="btn btn-primary">See Profile</a>
+        <h4 class="card-title">@Model?.TraineeName</h4>
+        <p class="card-text">@Model.Address - @Model?.Grade - @Model.DepartmentName</p>
+        <a href="/StudentGrades/AllGrades/@Model.Id" class="btn btn-primary">AllGrades</a>
     </div>
 </div>
 
