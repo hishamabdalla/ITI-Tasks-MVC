@@ -1,5 +1,7 @@
 ﻿@model List<TraineeWithDepartmentNameViewModel>
-<td> <a href="/Trainee/New" class="btn btn-primary">New Student</a></td>
+ <a href="/Trainee/New" class="btn btn-primary">New Student</a>
+<a asp-action="Index" asp-controller="Course" class="btn btn-primary">Go To Courses </a>
+
 <table class="table table-bordered">
     <tr>
         <th>Trainee Name</th>
@@ -28,4 +30,5 @@
         </tr>
     }
 </table>
+
 

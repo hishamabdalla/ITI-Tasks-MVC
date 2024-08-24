@@ -77,7 +77,7 @@ namespace ITI.Controllers
             ViewBag.Grade = new List<string>() { "Level 1", "Level 2", "Level 3", "Level 4" };
             return View(trainee);
         }
-        public IActionResult SaveEdit(Trainee traineeFromRequest,int id)
+        public IActionResult SaveEdit(Trainee traineeFromRequest)
         {
             if (traineeFromRequest.Name != null)
             {

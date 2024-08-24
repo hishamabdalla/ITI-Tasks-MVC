@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ITI.Models
 {
@@ -9,6 +10,7 @@ namespace ITI.Models
         public int Degree { get; set; }
         public int MinDegree {  get; set; }
         [ForeignKey("Department")]
+        [Display(Name ="Department Name")]
         public int Dept_Id { get; set; }
 
         public List<Instructor>? Instructors { get; set; }
