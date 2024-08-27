@@ -7,6 +7,16 @@ namespace ITI.Controllers
     public class CourseController : Controller
     {
         ITIEntity context = new ITIEntity();
+
+        public IActionResult CheckMinDegree(int MinDegree,int Degree)
+        {
+           
+            if (MinDegree < Degree) 
+            {
+                return Json(true);
+            }
+            return Json(false);
+        }
         public IActionResult Index()
         {
             List<Course> courses = context.Courses.ToList();
@@ -26,17 +36,17 @@ namespace ITI.Controllers
         public IActionResult New()
         {
             ViewData["DeptList"] = context.Departments.ToList();
-            return View();
+            return View(); 
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult SaveNew(Course course)
         {
-            if (course.Name != null)
+            if (ModelState.IsValid)
             {
-                context.Courses.Add(course);
-                context.SaveChanges();
-                return RedirectToAction("Index");
+                    context.Courses.Add(course);
+                    context.SaveChanges();
+                    return RedirectToAction("Index");   
             }
             else
             {
@@ -45,7 +55,7 @@ namespace ITI.Controllers
                 return View("New", course);
             }
 
-           
+             
         }
 
         public IActionResult Edit(int id)
@@ -55,12 +65,12 @@ namespace ITI.Controllers
 
             return View(courses);
         }
-
-        public IActionResult SaveEdit(Course courseFromRequest)
+        
+        public IActionResult SaveEdit(Course courseFromRequest,int id)
         {
             if (courseFromRequest.Name != null)
             {
-                Course courseFromDb = context.Courses.FirstOrDefault(c => c.Id == courseFromRequest.Id);
+                Course courseFromDb = context.Courses.FirstOrDefault(c => c.Id == id);
                 courseFromDb.Name = courseFromRequest.Name;
                 courseFromDb.Degree = courseFromRequest.Degree;
                 courseFromDb.MinDegree = courseFromRequest.MinDegree;
@@ -74,6 +84,18 @@ namespace ITI.Controllers
                 return View("Edit", courseFromRequest);
             }
         }
+        public IActionResult Delete(int id)
+        {
+            Course course = context.Courses.FirstOrDefault(t => t.Id == id);
+            if (course != null)
+            {
+                context.Courses.Remove(course);
+                context.SaveChanges();
+
+            }
+            return RedirectToAction("Index", "Course");
+        }
+
 
 
     }
