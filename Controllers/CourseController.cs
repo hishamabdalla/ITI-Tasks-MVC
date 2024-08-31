@@ -1,4 +1,5 @@
 ﻿using ITI.Models;
+using ITI.Repository;
 using ITI.ViewModel;
 using Microsoft.AspNetCore.Mvc;
 
@@ -6,7 +7,15 @@ namespace ITI.Controllers
 {
     public class CourseController : Controller
     {
-        ITIEntity context = new ITIEntity();
+        ICourseRepository courseRepo;
+        IDepartmentRepository DeptRepo;
+
+        public CourseController(ICourseRepository courseRepo, IDepartmentRepository deptRepo)
+        {
+            this.courseRepo = courseRepo;
+            this.DeptRepo = deptRepo;
+        }
+
 
         public IActionResult CheckMinDegree(int MinDegree,int Degree)
         {
@@ -19,8 +28,8 @@ namespace ITI.Controllers
         }
         public IActionResult Index()
         {
-            List<Course> courses = context.Courses.ToList();
-            List<Department> departments = context.Departments.ToList();
+            List<Course> courses = courseRepo.GetAll();
+            List<Department> departments = DeptRepo.GetAll();
             var courseAndDepartmentName = courses.Select(cr => new CourseAndDepartmentNameViewModel
             {
                 Id = cr.Id,
@@ -35,23 +44,21 @@ namespace ITI.Controllers
 
         public IActionResult New()
         {
-            ViewData["DeptList"] = context.Departments.ToList();
+            ViewData["DeptList"] = DeptRepo.GetAll().ToList();
             return View(); 
         }
         [HttpPost]
-        [ValidateAntiForgeryToken]
+        [ValidateAntiForgeryToken] 
         public IActionResult SaveNew(Course course)
         {
             if (ModelState.IsValid)
             {
-                    context.Courses.Add(course);
-                    context.SaveChanges();
+                  courseRepo.Add(course);
                     return RedirectToAction("Index");   
             }
             else
             {
-                ViewData["DeptList"] = context.Departments.ToList();
-
+                ViewData["DeptList"] = DeptRepo.GetAll().ToList();
                 return View("New", course);
             }
 
@@ -60,8 +67,8 @@ namespace ITI.Controllers
 
         public IActionResult Edit(int id)
         {
-            var courses = context.Courses.FirstOrDefault(c => c.Id == id);
-            ViewData["DeptList"] = context.Departments.ToList();
+            var courses = courseRepo.GetById(id);
+            ViewData["DeptList"] = DeptRepo.GetAll().ToList();
 
             return View(courses);
         }
@@ -70,29 +77,18 @@ namespace ITI.Controllers
         {
             if (courseFromRequest.Name != null)
             {
-                Course courseFromDb = context.Courses.FirstOrDefault(c => c.Id == id);
-                courseFromDb.Name = courseFromRequest.Name;
-                courseFromDb.Degree = courseFromRequest.Degree;
-                courseFromDb.MinDegree = courseFromRequest.MinDegree;
-                courseFromDb.Dept_Id = courseFromRequest.Dept_Id;
-                context.SaveChanges();
+                courseRepo.Update(id, courseFromRequest);
                 return RedirectToAction("Index");
             }
             else
             {
-                ViewData["DeptList"] = context.Departments.ToList();
+                ViewData["DeptList"] = DeptRepo.GetAll().ToList();
                 return View("Edit", courseFromRequest);
             }
         }
         public IActionResult Delete(int id)
         {
-            Course course = context.Courses.FirstOrDefault(t => t.Id == id);
-            if (course != null)
-            {
-                context.Courses.Remove(course);
-                context.SaveChanges();
-
-            }
+           courseRepo.Delete(id);
             return RedirectToAction("Index", "Course");
         }
 

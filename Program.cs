@@ -1,3 +1,7 @@
+using ITI.Models;
+using ITI.Repository;
+using Microsoft.EntityFrameworkCore;
+
 namespace ITI
 {
     public class Program
@@ -8,7 +12,9 @@ namespace ITI
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
-
+            builder.Services.AddDbContext<ITIEntity>(option=>option.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+            builder.Services.AddScoped<ICourseRepository, CourseRepository>();
+            builder.Services.AddScoped<IDepartmentRepository, DepartmentRepository>();
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
